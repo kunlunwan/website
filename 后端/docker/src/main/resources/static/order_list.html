@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>飞机零件-后台管理系统</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/shop-homepage.css" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap-datetimepicker.css" rel="stylesheet">
+
+  <style>
+      thead th {
+          text-align: center;
+      }
+      tbody td {
+        text-align: center;
+      }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">零件后台管理系统</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html">主页
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">关于</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">联系我们</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div style="float:right;">
+		<ul class="navbar-nav">
+			<li class = "nav-item">
+				<span class="nav-link" id="account" style="color:white;"></span>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link"  href="login.html">退出</a>
+			</li>
+		</ul>
+  </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-lg-3">
+
+        <h1 class="my-4">目录</h1>
+        <div class="list-group">
+          <a href="index.html" class="list-group-item">零件列表</a>
+          <a href="add_list.html" class="list-group-item">零件上新</a>
+          <a href="order_list.html" class="list-group-item">订单记录</a>
+        </div>
+
+      </div>
+      <!-- /.col-lg-3 -->
+
+      <div class="col-lg-9" style="padding-top: 30px;padding-bottom: 1px">
+            <div style="height: ${pageSize*50}px;width: 800px;margin-left: 40px;margin-right: 153px;margin-top: 5px">
+              <table class="table table-hover">
+                <thead> 
+                <th style="width:15%;">订单编号</th>
+                <th style="width:15%;">零件名称</th>
+                <th style="width:15%;">飞机编号</th>
+                <th style="width:20%;">订单用户</th>
+                <th style="width:30%;">下单时间</th>
+                <th style="width:20%;">操作</th>
+                </thead>
+                <tbody id="tbody">
+                    <tr>
+                      <td>1</td>
+                      <td>10000</td>
+                      <td>1</td>
+                      <td>10000</td>
+                      <td>2019-08-19 21:36:04</td>
+                      <td><input type='button' class='btn btn-info' value='发货' onclick="unblock(users[i].id)" style="color:white;height:30px;font-size:5px"></td>
+                    <tr>
+                </tbody>
+              </table>
+              每页显示：<select id="setSearchPageSize" onchange="editSearchPageSize()" style="width:70px">
+                <option value="1">20</option>
+                <option value="2">50</option>
+              </select>条
+            </div>
+            <div style="margin-left: 40%;">
+              <ul class="pagination" id="pagination">
+              </ul>
+            </div>
+      </div>
+      <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark" style="margin-top: 500px;">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap-datetimepicker.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap-datetimepicker.zh-CN.js"></script>
+
+  <script type="text/javascript">
+    /*
+    function editSearchPageSize() {
+    var setSearchPageSize = $("#setSearchPageSize").val();
+    $.ajax({
+        url: "http:/localhost:8080/Admin/editsearchpagesize",
+        type: "get",
+        dataType: "json",
+        data: {searchPageSize: setSearchPageSize},
+        xhrFields: {withCredentials: true},
+        success: function (msg) {
+            if (msg.code == "200") {
+                getresult(1);
+            }
+        }});
+    }
+    */
+
+    function send(order_id){
+
+      var html = "<div class='modal fade' id='myConfirm' >"
+            + "<div class='modal-backdrop in' style='opacity:0; '></div>"
+            + "<div class='modal-dialog' style='z-index:2901; margin-top:60px; width:400px; '>"
+            + "<div class='modal-content'>"
+            + "<div class='modal-header'  style='font-size:16px; '>"
+            + "<span class='glyphicon glyphicon-envelope'>&nbsp;</span>提示！<button type='button' class='close' data-dismiss='modal'>"
+            + "<span style='font-size:20px;  ' class='glyphicon glyphicon-remove'></span><tton></div>"
+            + "<div class='modal-body text-center' id='myConfirmContent' style='font-size:18px; '>"
+            + "是否确认发货？"
+            + "</div>"
+            + "<div class='modal-footer ' style=''>"
+            + "<button class='btn btn-danger ' id='confirmOk' >确定<tton>"
+            + "<button class='btn btn-info ' data-dismiss='modal'>取消<tton>"
+            + "</div>" + "</div></div></div>";
+    $("body").append(html);
+
+    $("#myConfirm").modal("show");
+
+    $("#confirmOk").on("click", function() {
+        $("#myConfirm").modal("hide");
+        $.ajax({
+            type: "get",
+            url: "http://120.79.96.220:8080/plane/setOrderState/"+order_id,
+            xhrFields: {withCredentials: true},
+            dataType:'json',
+            success: function (msg) {
+                window.location.reload();
+            },
+            error:function()
+            {
+                alert("连接错误");
+            }
+        });
+    });
+
+    }
+
+         $(document).ready(function(){
+          var value = window.sessionStorage.getItem("account");
+          $("#account").text(value);
+
+          var str="";
+          var tbody = document.getElementById("tbody");
+          $.ajax({
+          type: "get",
+          url: "http://120.79.96.220:8080/plane/getOrder",
+          xhrFields: {withCredentials: true},
+          dataType:'json',
+          success: function (msg) {
+              var order_list = msg.body;
+              for(var i in order_list)
+              {
+                    str += "<tr><td>"+order_list[i].id+"</td> <td>"+order_list[i].component_name+"</td> <td>"+order_list[i].plane_id+"</td><td>"+order_list[i].purchaser+"</td><td>"+order_list[i].purchase_time+"</td><td>";
+                    var str_send = "<input type='button' class='btn btn-info' value='发货' onclick='send("+order_list[i].id+")' style='color:white;height:30px;font-size:5px'>";
+                    if(order_list[i].state == "1"){
+                        str_send = "已发货";
+                    }
+                    str += str_send + "</td> <tr>";
+                    tbody.innerHTML = str;
+              }
+          },
+          error:function()
+          {
+              alert("连接错误");
+          }
+      });
+    });
+  </script>
+
+</body>
+
+</html>
