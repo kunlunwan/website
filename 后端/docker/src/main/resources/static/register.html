@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="Kodinger">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>My Login Page &mdash; Bootstrap 4 Login Page Snippet</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/my-login.css">
+</head>
+<body class="my-login-page">
+	<section class="h-100">
+		<div class="container h-100">
+			<div class="row justify-content-md-center h-100">
+				<div class="card-wrapper">
+					<div style="text-align: center;padding-top:60px;padding-bottom: 30px;">
+						<h2>飞机零件后台管理系统</h2>
+					</div>
+					<div class="card fat">
+						<div class="card-body">
+							<h4 class="card-title">用户注册</h4>
+							<form method="POST" class="my-login-validation" novalidate="">
+
+								<div class="form-group">
+									<label for="email">邮箱</label>
+									<input id="email" type="email" class="form-control" name="email" onkeydown="return banInputSapce(event);" onKeyup="return inputSapceTrim(event,this);" required >
+									<div class="invalid-feedback" id="email_varify">
+										请输入邮箱地址
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="name">姓名</label>
+									<input id="name" type="text" class="form-control" name="name" onkeydown="return banInputSapce(event);" onKeyup="return inputSapceTrim(event,this);" required >
+									<div class="invalid-feedback" id="name_varify">
+										请输入姓名
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="idcard">身份证号码</label>
+									<input id="idcard" type="text" class="form-control" name="idcard" onkeydown="return banInputSapce(event);" onKeyup="return inputSapceTrim(event,this);" required>
+									<div class="invalid-feedback" id="idcard_varify">
+										请输入合法的身份证号码
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="comefrom">来自厂商</label>
+									<input id="comefrom" type="text" class="form-control" name="comefrom" onkeydown="return banInputSapce(event);" onKeyup="return inputSapceTrim(event,this);" required>
+									<div class="invalid-feedback" id="comefrom_varify">
+										请输入厂商名
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="password">密码</label>
+									<input id="password" type="password" class="form-control" name="password" onkeydown="return banInputSapce(event);" onKeyup="return inputSapceTrim(event,this);" required>
+									<div class="invalid-feedback" id="password_varify">
+										请输入密码
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="repassword">重新输入密码</label>
+									<input id="repassword" type="password" class="form-control" name="repassword" onkeydown="return banInputSapce(event);" onKeyup="return inputSapceTrim(event,this);" required>
+									<div class="invalid-feedback" id="repassword_varify">
+										请输入密码
+									</div>
+								</div>
+
+								<div class="form-group m-0">
+									<!-- <button type="submit" class="btn btn-primary btn-block" >
+										注册
+									</button> -->
+									<input type="button" class="btn btn-primary btn-block" value="注册" onclick="register()">
+								</div>
+								<div class="mt-4 text-center">
+									已经有账户了? &nbsp;&nbsp;<a href="login.html">登录</a>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="footer">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="js/my-login.js"></script>
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+		  var email = $("#email").val();
+          var name = $("#name").val();
+          // var producers = $("#producers").val();
+          var idcard = $("#idcard").val();
+          var comefrom = $("#comefrom").val();
+          var password = $("#password").val();
+          var repassword = $("#repassword").val();
+          // alert(partid+partname+producers+partdate+price+category+imageurl+description);
+  		  $("#email").blur(function(){
+				var em = $("#email").val();
+				if (em.match(/^[ ]*$/)) {
+					$("#email_varify").show();
+					$("#email").focus();
+				}
+				else{
+					$("#email_varify").hide();
+				}
+		  });
+  		  $("#name").blur(function(){
+				var em = $("#name").val();
+				if (em.match(/^[ ]*$/)) {
+					$("#name_varify").show();
+					$("#name").focus();
+				}
+				else{
+					$("#name_varify").hide();
+				}
+		  });
+  		  $("#idcard").blur(function(){
+				var em = $("#idcard").val();
+				if (em.match(/^[ ]*$/)) {
+					$("#idcard_varify").show();
+					$("#idcard").focus();
+				}
+				else{
+					$("#idcard_varify").hide();
+				}
+		  });
+  		  $("#comefrom").blur(function(){
+				var em = $("#comefrom").val();
+				if (em.match(/^[ ]*$/)) {
+					$("#comefrom_varify").show();
+					$("#comefrom").focus();
+				}
+				else{
+					$("#comefrom_varify").hide();
+				}
+		  });
+  		  $("#password").blur(function(){
+				var em = $("#password").val();
+				if (em.match(/^[ ]*$/)) {
+					$("#password_varify").show();
+					$("#password").focus();
+				}
+				else{
+					$("#password_varify").hide();
+				}
+		  });
+  		  $("#repassword").blur(function(){
+				var em = $("#repassword").val();
+				if (em.match(/^[ ]*$/)) {
+					$("#repassword_varify").show();
+					$("#repassword").focus();
+				}
+				else{
+					$("#repassword_varify").hide();
+				}
+		  });
+		});
+
+		function register(){
+			// TODO 注册操作
+			var email = $("#email").val();
+			var name = $("#name").val();
+			var id_card = $("#idcard").val();
+			var comefrom = $("#comefrom").val();
+			var password = $("#password").val();
+			var repassword = $("#repassword").val();
+			var flag = true;
+			if(email=="")
+			{
+				$("#email").focus();
+				flag = false;
+			}
+			if(name=="")
+			{
+				$("#name").focus();
+				flag = false;
+			}
+			if(idcard=="")
+			{
+				$("#idcard").focus();
+				flag = false;
+			}
+			if(comefrom=="")
+			{
+				$("#comefrom").focus();
+				flag = false;
+			}
+			if(password=="")
+			{
+				$("#password").focus();
+				flag = false;
+			}
+			if(repassword=="")
+			{
+				$("#repassword").focus();
+				flag = false;
+			}
+
+			if(flag){
+			if(password != repassword)
+			{
+				var html = "<div class='modal fade' id='myConfirm' >"
+			            + "<div class='modal-backdrop in' style='opacity:0; '></div>"
+			            + "<div class='modal-dialog' style='z-index:2901; margin-top:60px; width:400px; '>"
+			            + "<div class='modal-content'>"
+			            + "<div class='modal-header'  style='font-size:16px; '>"
+			            + "<span class='glyphicon glyphicon-envelope'>&nbsp;</span>提示！<button type='button' class='close' data-dismiss='modal'>"
+			            + "<span style='font-size:20px;  ' class='glyphicon glyphicon-remove'></span><tton></div>"
+			            + "<div class='modal-body text-center' id='myConfirmContent' style='font-size:18px; '>"
+			            + "两次密码输入不一致，请重新输入！"
+			            + "</div>"
+			            + "<div class='modal-footer ' style=''>"
+			            + "<button class='btn btn-danger ' id='confirmOk' >确定<tton>"
+			            + "</div>" + "</div></div></div>";
+					    $("body").append(html);
+
+					    $("#myConfirm").modal("show");
+
+					    $("#confirmOk").on("click", function() {
+					        $("#myConfirm").modal("hide");
+					    });
+			}
+			else
+			{
+				$.ajax({
+                type: "post",
+                url: "http://120.79.96.220:8080/user/register",
+                xhrFields: {withCredentials: true},
+                data: {account: email, id_card:id_card,name:name,comefrom:comefrom,password: password},
+                dataType:'json',
+                success: function (msg) {
+                    // alert(msg.message);
+                    if(msg.code == "3")
+                    {
+                    	var html = "<div class='modal fade' id='myConfirm' >"
+			            + "<div class='modal-backdrop in' style='opacity:0; '></div>"
+			            + "<div class='modal-dialog' style='z-index:2901; margin-top:60px; width:400px; '>"
+			            + "<div class='modal-content'>"
+			            + "<div class='modal-header'  style='font-size:16px; '>"
+			            + "<span class='glyphicon glyphicon-envelope'>&nbsp;</span>提示！<button type='button' class='close' data-dismiss='modal'>"
+			            + "<span style='font-size:20px;  ' class='glyphicon glyphicon-remove'></span><tton></div>"
+			            + "<div class='modal-body text-center' id='myConfirmContent' style='font-size:18px; '>"
+			            + "注册成功！"
+			            + "</div>"
+			            + "<div class='modal-footer ' style=''>"
+			            + "<button class='btn btn-danger ' id='confirmOk' >确定<tton>"
+			            + "</div>" + "</div></div></div>";
+					    $("body").append(html);
+
+					    $("#myConfirm").modal("show");
+
+					    $("#confirmOk").on("click", function() {
+					        $("#myConfirm").modal("hide");
+					        window.location = "login.html";
+					    });
+                    }
+                    else
+                    {
+                    	alert('信息输入有误');
+                    }
+                },
+                error:function()
+                {
+                    alert("连接错误");
+                }
+            });
+			}
+		}
+		}
+
+		/** 
+		* 是否去除所有空格 
+		* @param str 
+		* @param is_global 如果为g或者G去除所有的 
+		* @returns 
+		*/ 
+		function Trim(str,is_global) 
+		{ 
+		var result; 
+		result = str.replace(/(^\s+)|(\s+$)/g,""); 
+		if(is_global.toLowerCase()=="g") 
+		{ 
+		result = result.replace(/\s/g,""); 
+		} 
+		return result; 
+		} 
+		/** 
+		* 空格输入去除 
+		* @param e 
+		* @returns {Boolean} 
+		*/ 
+		function inputSapceTrim(e,this_temp) 
+		{ 
+		this_temp.value = Trim(this_temp.value,"g"); 
+		var keynum; 
+		if(window.event) // IE 
+		{ 
+		keynum = e.keyCode 
+		} 
+		else if(e.which) // Netscape/Firefox/Opera 
+		{ 
+		keynum = e.which 
+		} 
+		if(keynum == 32){ 
+		return false; 
+		} 
+		return true; 
+		}
+
+		/** 
+		* 禁止空格输入 
+		* @param e 
+		* @returns {Boolean} 
+		*/ 
+		function banInputSapce(e) 
+		{ 
+		var keynum; 
+		if(window.event) // IE 
+		{ 
+		keynum = e.keyCode 
+		} 
+		else if(e.which) // Netscape/Firefox/Opera 
+		{ 
+		keynum = e.which 
+		} 
+		if(keynum == 32){ 
+		return false; 
+		} 
+		return true; 
+		} 
+	</script>
+</body>
+</html>
